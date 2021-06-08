@@ -3,7 +3,6 @@
 A python package that lets you create image templates. It can be used with self coded plugins to make different images with the same template.
 
 ## Installation
----
 ### Download
 1. __Download__ the repository as a Zip-file
 2. __Unzip__ the repository to a desired directory
@@ -13,7 +12,6 @@ A python package that lets you create image templates. It can be used with self 
 *pip package is coming soon!*
 
 ## Usage
----
 0. *using an IDE like VS Code for this is recommended*
 
 1. Create this `run.py` file within the directory where you saved the ImageCreator:
@@ -51,7 +49,6 @@ A python package that lets you create image templates. It can be used with self 
 6. Modify your __configuration file__ and press enter when you want to see what you did.
 
 ## Additional Features
----
 ### __Fonts__:
 You can put fonts in `.ttf` or `.otf` format inside the `root/Assets/fonts` directory so that you can use them.
 ### __Images__:
@@ -92,13 +89,10 @@ def run(name):
 
 *(Quotation marks can be left out when using the .yaml format)*
 ## Contributing
----
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 ## Notes
----
 This is my very first attempt to publish something to github, so I am still learning and always open for feedback, so if you think there is something I could do better or want to cooperate, feel free to contact me at: enocyzed@gmail.com
 
 ## License
----
 [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)

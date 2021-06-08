@@ -165,7 +165,7 @@ class CreatePicture:
             w, h = d.textsize(message, font=fnt)
 
             if w > 1050:
-                size_ = size_ - 5  # higher = faster but more inaccurate ; lower = slower but more accurate
+                size_ = size_ - 5   # higher = faster but more inaccurate ; lower = slower but more accurate
             else:
                 break
 

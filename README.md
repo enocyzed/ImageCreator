@@ -92,7 +92,7 @@ def run(name):
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 ## Notes
-This is my very first attempt to publish something to github, so I am still learning and always open for feedback, so if you think there is something I could do better or want to cooperate, feel free to contact me at: enocyzed@gmail.com
+This is my very first attempt to publish something to github, so I am still learning and always open for feedback. If you think there is something I could do better or if you want to cooperate, feel free to contact me at: enocyzed@gmail.com
 
 ## License
 [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)

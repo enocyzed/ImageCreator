@@ -273,7 +273,7 @@ class CreatePicture:
         return out
 
 
-params = {
+example_params = {
     "path": "t1.jpg",
     "size": {"width": 1080, "height": 1080, "keep_aspect_ratio": True},
     "crop": {"x": 200, "y": 200, "width": 0, "height": 0, "to_square": True},
@@ -407,15 +407,3 @@ def safe_create(parameters, save_path=None, save_name=None):
     except Exception as e:
         traceback.print_exc()
         print(e)
-
-
-if __name__ == '__main__':
-    params2 = {
-        "path": r"C:\Users\enkwo\Desktop\insta_bot_phone\Assets\Lil Loaded.jpg",
-        "size": {"width": 1080, "height": 1080, "keep_aspect_ratio": True},
-        "crop": {"x": 0, "y": 0, "width": 0, "height": 0, "to_square": True}
-    }
-
-    print(safe_create(r"C:\Enoch\Projects\deployable_instabot\picture_creator\test_\params.json",
-                      save_path=r"C:\Enoch\Projects\deployable_instabot\picture_creator\test_",
-                      save_name="testy"))

@@ -117,7 +117,3 @@ def create_on_modified():
 def create_template():
     json_ = to_dict(select())
     file_writer(json_, directory=config_dir)
-
-
-if __name__ == '__main__':
-    select_file()

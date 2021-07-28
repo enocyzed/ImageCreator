@@ -1,3 +1,7 @@
+# Automatically created direcrories
+Assets/
+CreateConfigurations/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

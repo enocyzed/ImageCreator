@@ -39,9 +39,9 @@ class CreatePicture:
         else:
             im = pic
 
-        if width == 0:
+        if width == 0 or width is None:
             width = im.size[0]
-        if height == 0:
+        if height == 0 or height is None:
             height = im.size[1]
 
         if not to_square:
@@ -258,19 +258,18 @@ class CreatePicture:
             img = Image.open(image)
         else:
             img = image
-        out = img
         if brightness != 1.0:
-            out = ImageEnhance.Brightness(img).enhance(brightness)  # 0.0 = black image ; 1.0 = original image
+            img = ImageEnhance.Brightness(img).enhance(brightness)  # 0.0 = black image ; 1.0 = original image
         if color != 1.0:
-            out = ImageEnhance.Color(img).enhance(color)  # 0.0 = black and white image ; 1.0 = original image
+            img = ImageEnhance.Color(img).enhance(color)  # 0.0 = black and white image ; 1.0 = original image
         if contrast != 1.0:
-            out = ImageEnhance.Contrast(img).enhance(contrast)  # 0.0 = solid grey image ; 1.0 = original image
+            img = ImageEnhance.Contrast(img).enhance(contrast)  # 0.0 = solid grey image ; 1.0 = original image
         if sharpness != 1.0:
-            out = ImageEnhance.Sharpness(img).enhance(sharpness)  # 0.0 = blurred ; 2.0 = sharpened
+            img = ImageEnhance.Sharpness(img).enhance(sharpness)  # 0.0 = blurred ; 2.0 = sharpened
 
         if image is None:
-            self.picture = out
-        return out
+            self.picture = img
+        return img
 
 
 example_params = {
@@ -315,7 +314,7 @@ example_params = {
 }
 
 
-def create_picture(parameters, save_path=None, save_name=None):
+def create_picture(parameters, save_path=None, save_name=None, return_image=False):
 
     if isinstance(parameters, str):
         if os.path.exists(parameters):
@@ -346,7 +345,7 @@ def create_picture(parameters, save_path=None, save_name=None):
             if color_ is not None: create.overlay_images(
                 fgi=Image.new("RGBA", create.picture.size, color_))
         elif size_ is not None:
-            size = (size_["width"], size_["height"])
+            size = (size_.get("width", 1), size_.get("height", 1))
             create.set_background(color=color_, size=size)
 
         if crop_ is not None:
@@ -361,15 +360,23 @@ def create_picture(parameters, save_path=None, save_name=None):
         if overlays_ is not None:
             overlay_items = overlays_.items()
             for index, overlay in overlay_items:
+                if isinstance(overlay, str): continue
                 overlay_type = overlay.get("type", None)
                 if overlay_type == "image":
                     create.overlay_images(
                         fgi=image_handler(overlay["params"]), **overlay["location"])
                 elif overlay_type == "text":
-                    params_ = {}
-                    for i, v in overlay["params"].items():
-                        params_[i] = v
-                    create.add_text(**params_, **overlay["location"])
+                    if overlay.get("box_width") or overlay.get("box_height") or overlay.get("spacing") or overlay.get("align"):
+                        # if true text is multiline
+                        params_ = {}
+                        for i, v in overlay["params"].items():
+                            params_[i] = v
+                        create.add_multiline_text(**params_, **overlay["location"])
+                    else:
+                        params_ = {}
+                        for i, v in overlay["params"].items():
+                            params_[i] = v
+                        create.add_text(**params_, **overlay["location"])
                 elif overlay_type == "multiline_text":
                     params_ = {}
                     for i, v in overlay["params"].items():
@@ -391,16 +398,17 @@ def create_picture(parameters, save_path=None, save_name=None):
             path = os.path.join(save_path, name)
             with open(path, "w"):
                 img_done.save(path, "PNG")
-            return path
         except Exception as e:
             print(e)
 
-    return img_done
+    if return_image: return img_done
+    else: return path
 
 
-def safe_create(parameters, save_path=None, save_name=None):
+
+def safe_create(parameters, save_path=None, save_name=None, return_image=False):
     try:
-        path = create_picture(parameters, save_path, save_name)
+        path = create_picture(parameters, save_path, save_name, return_image)
         return path
     except KeyboardInterrupt:
         exit(-1)

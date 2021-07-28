@@ -1,6 +1,6 @@
 # ImageCreator
 
-A python package that lets you create image templates. It can be used with self coded plugins to make different images with the same template.
+A python package that lets you create image templates. It can be used with self coded plugins to produce dynamically changing images with the same template.
 
 ## Installation
 ### Download
@@ -12,20 +12,19 @@ A python package that lets you create image templates. It can be used with self 
 *pip package is coming soon!*
 
 ## Usage
-0. *using an IDE like VS Code for this is recommended*
+0. *using VS Code as text editor for this is recommended*
 
-1. Create this `run.py` file within the directory where you saved the ImageCreator:
+1. Create this `run.py` file (within the directory where you saved the ImageCreator if not installed with PIP):
     ```python
     # run.py
     import ImageCreator
 
-    ImageCreator.create_template()
-    ImageCreator.create_on_pressed()
+    ImageCreator.start()
     ```
-2. Run the `run.py` file. It will create a structure like this:
+2. Run the `run.py` file. It will create a structure like this when first executed:
     ```css
     root
-    ├ ImageCreator
+    ├ (ImageCreator)
     ├ Assets
     |  ├ fonts
     |  |  └ _fonts.py
@@ -36,17 +35,28 @@ A python package that lets you create image templates. It can be used with self 
     └ run.py
     ```
 
-3. Create a template with the desired ...
-    - __overlays__
-    - __name__
-    - __format__ (yaml, json) -> *yaml is recommended*
-    - __flowstyle__ (none, default, full) -> *default is recommended*
+3. Create a template with the template editor GUI
+<br></br>
 
-4. Open the created file from `root/CreateConfigurations` and select it in the command prompt.
+## Using the template editor GUI
 
-5. Press enter and open the __created image__ from `root/CreateConfigurations/created_images`
-
-6. Modify your __configuration file__ and press enter when you want to see what you did.
+1. __Select file button__:  
+Select a configuration file in the file dialog that you want to edit.
+2. __Stay on top checkbox__:  
+Make the window stay on top of all other windows (useful when you are editing a configuration file).
+3. __Auto refresh checkbox__:
+Make the image refresh automatically to directly see your changes.
+4. __Refresh Button__:  
+Refresh the image manually (recommended for slower PCs).
+5. __Add File/Add Overlay Button__
+When no file is selected, you can click on the button to create and save a new configuration file.  
+When there is a file selected, you can add overlays to an image object with:  `a: OVERLAY_KEYWORD`  
+__Overlay keywords:__  
+`image` or `img` to add an image overlay  
+`text` or `txt` to add a text overlay  
+`multiline_text` or `multiline` or `multi` or `mtxt` to add a multiline text overlay  
+  
+When you have a configuration file selected or created, you can open it in VS Code and edit it. When you activate Auto Save in VS Code and Auto Refresh in the GUI, you can see what your changes did directly.
 
 ## Additional Features
 ### __Fonts__:
@@ -58,10 +68,19 @@ Plugins can be used to add anything (for example text) to the image at the time 
 ```yaml
 # your_configuration.yaml
 ...
+message:
+    plugin: YOUR_PLUGIN
+    kwargs:
+        KEYWORD: ARGUMENT
+
+... OR ...
+
 message: {plugin: YOUR_PLUGIN, kwargs: {KEYWORD: ARGUMENT}}
 ```
 They can be used with keyword arguments if needed, and even get their keyword arguments trough another plugin.  
 Plugins need to be in the `root/Assets/plugins` directory and need to have a run method, that returns the desired output.
+
+
 ```python
 # example_plugin.py
 import time
@@ -70,12 +89,10 @@ def run():
     time_now = time.ctime()
     return time_now
 ```
-*Callable with:* `{"plugin": "example_plugin"}`  
+*Callable with:* `{plugin: example_plugin}`  
 *Example Output*: `Tue Jun  8 13:32:09 2021`
 
-
-<br/>
-
+<br><br/>
 ```python
 # example_plugin2.py
 
@@ -83,11 +100,11 @@ def run(name):
     sentence = f"Hello {name}, have a great day!"
     return sentence
 ```
-*Callable with:* `{"plugin": "example_plugin2", "kwargs":{"name": "Peter Griffin"}}`  
-*Example Output*: `Hello Peter Griffin, have a great day!`  
-.  
+*Callable with:* `{plugin: example_plugin2, kwargs:{name: Peter Griffin}}`  
+*Example Output*: `Hello Peter Griffin, have a great day!`
 
-*(Quotation marks can be left out when using the .yaml format)*
+<br><br/>
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 

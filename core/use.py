@@ -17,7 +17,7 @@ os.chdir(dname)
 config_dir = os.path.join(os.path.dirname(assets_directory), "CreateConfigurations")
 
 
-def create(path_to_config=None, save_path=None, filename=None):
+def create(path_to_config=None, save_path=None, filename=None, return_image=False):
     if isinstance(path_to_config, str):
         if not os.path.exists(path_to_config):
             p = os.path.join(config_dir, path_to_config)
@@ -40,7 +40,7 @@ def create(path_to_config=None, save_path=None, filename=None):
     if filename is None:
         filename = pathlib.Path(path_to_config).stem
 
-    path = safe_create(path_to_config, save_path=save_path, save_name=filename)
+    path = safe_create(path_to_config, save_path=save_path, save_name=filename, return_image=return_image)
     return path
 
 

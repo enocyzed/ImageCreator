@@ -3,6 +3,15 @@ import sys
 import time
 
 
+# When the package is a pip package, this can be removed
+import sys
+import pathlib
+abspath = os.path.abspath(sys.argv[0])
+dname = os.path.dirname(abspath)
+sys.path.append(os.path.dirname(dname))
+sys.path.append(str(pathlib.Path(__file__).parent.absolute()))
+#
+
 def make_dir(name):
     if not os.path.exists(name):
         os.mkdir(name)

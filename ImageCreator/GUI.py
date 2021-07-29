@@ -1,18 +1,6 @@
 import os
-import time
-import sys
-import collections
-import inspect
-import gc
-import importlib.util
-from functools import partial
-from watchdog.observers import Observer
-from watchdog.events import FileModifiedEvent
 import watchdog.events
 import watchdog.observers
-import time
-import pathlib
-from threading import Thread
 import yaml
 
 from tkinter import ttk
@@ -22,11 +10,11 @@ from tkinter import *
 
 from PIL import Image, ImageTk
 
-from core.image_create import CreatePicture, create_picture, safe_create
-from core.utils import to_json
-from core import assets_directory
-from core.use import create
-from core.make_template import base_image, overlay_image, text, multiline_text
+from ImageCreator.core.image_create import CreatePicture, create_picture, safe_create
+from ImageCreator.core.utils import to_json
+from ImageCreator.core import assets_directory
+from ImageCreator.core.use import create
+from ImageCreator.core.make_template import base_image, overlay_image, text, multiline_text
 
 config_dir = os.path.join(os.path.dirname(assets_directory), "CreateConfigurations")
 config_path = ""
